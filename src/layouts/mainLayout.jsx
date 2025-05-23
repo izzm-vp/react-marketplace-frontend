@@ -10,14 +10,9 @@ export default function MainLayout() {
     const navigate = useNavigate();
 
 
-    useEffect(() => {
-        if (user?.roles?.includes('ROLE_ADMIN')) {
-            navigate('/admin/dashboard');
-        }
-    }, [user, navigate]);
-
 
     useEffect(() => {
+
         const initMainLayout = async () => {
             try {
                 await dispatch(fetchUserCart()).unwrap();
@@ -25,8 +20,15 @@ export default function MainLayout() {
                 console.error('Failed to fetch user cart:', error);
             }
         };
-        initMainLayout();
-    }, [dispatch]);
+        if (user?.roles?.includes('ROLE_ADMIN')) {
+            navigate('/admin/dashboard');
+        } else {
+            initMainLayout();
+        }
+    }, [user, navigate, dispatch]);
+
+
+
 
 
     return (
