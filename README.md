@@ -1,4 +1,17 @@
-## ⚙️INSTRUCTIONS
+## Stack Frontend
+
+Tailwind CSS : pour un design rapide.
+
+Axios : pour les appels API vers le backend Symfony.
+
+shadcn/ui : composants UI accessibles et élégants, intégrés avec Tailwind.
+
+Framer Motion : animations fluides pour une meilleure UX.
+
+
+
+
+## INSTRUCTIONS
 
 Avant de démarrer ce projet frontend, vous devez **cloner et exécuter le backend Symfony** :  
 [`symfony-marketplace-backend`](https://github.com/votre-utilisateur/symfony-marketplace-backend)
@@ -60,6 +73,3 @@ Pour lancer l’application en local, tape  :
 
 Accédez à :
 http://localhost:5173
-
-
-
