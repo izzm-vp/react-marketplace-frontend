@@ -1,4 +1,4 @@
-## Stack Frontend
+# Stack Frontend
 
 Tailwind CSS : pour un design rapide.
 
@@ -8,10 +8,12 @@ shadcn/ui : composants UI accessibles et élégants, intégrés avec Tailwind.
 
 Framer Motion : animations fluides pour une meilleure UX.
 
+Redux Toolkit : pour une gestion d’état globale.
 
 
 
-## INSTRUCTIONS
+
+# INSTRUCTIONS
 
 Avant de démarrer ce projet frontend, vous devez **cloner et exécuter le backend Symfony** :  
 [`symfony-marketplace-backend`](https://github.com/votre-utilisateur/symfony-marketplace-backend)
