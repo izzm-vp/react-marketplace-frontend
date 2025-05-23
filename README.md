@@ -1,12 +1,77 @@
-# React + Vite
+# Stack Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tailwind CSS : pour un design rapide.
 
-Currently, two official plugins are available:
+Axios : pour les appels API vers le backend Symfony.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+shadcn/ui : composants UI accessibles et élégants, intégrés avec Tailwind.
 
-## Expanding the ESLint configuration
+Framer Motion : animations fluides pour une meilleure UX.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Redux Toolkit : pour une gestion d’état globale.
+
+
+
+
+# INSTRUCTIONS
+
+Avant de démarrer ce projet frontend, vous devez **cloner et exécuter le backend Symfony** :  
+[`symfony-marketplace-backend`](https://github.com/votre-utilisateur/symfony-marketplace-backend)
+
+### Étapes à suivre
+
+#### 1. Installer Node.js
+
+Assurez-vous d’avoir Node.js installé sur votre machine (version recommandée : **16 ou plus**).
+
+Pour vérifier :
+```bash
+node -v
+```
+
+#### 2. Cloner ce dépôt react-marketplace-frontend
+
+Dans ton terminal, tape (En supposant que Git soit installé) :
+
+```bash
+git clone https://github.com/izzm-vp/react-marketplace-frontend.git
+cd react-marketplace-frontend
+
+```
+
+#### 3. Installer les dépendances
+
+Dans le dossier du projet, lance la commande :
+
+```bash
+npm install
+
+```
+
+#### 4. Créez un fichier .env 
+
+Après avoir cloné et lancé le dépôt backend,
+créez un fichier .env à la racine du projet frontend,
+et ajoutez-y l’URL de votre backend, par exemple :
+
+```bash
+VITE_BACKEND_URL=http://localhost:8000/
+
+```
+
+
+#### 5. Démarrer le serveur de développement
+
+Pour lancer l’application en local, tape  :
+
+```bash
+npm run dev
+
+```
+
+#### 6. Démarrer le serveur de développement
+
+Pour lancer l’application en local, tape  :
+
+Accédez à :
+http://localhost:5173
