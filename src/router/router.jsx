@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "../components/protectedRoute";
-import  MainLayout  from "../layouts/mainLayout";
+import MainLayout from "../layouts/mainLayout";
 import Homepage from "../pages/home/homePage";
 import ProductDetails from "../pages/home/productDetails";
+import AdminLayout from "../layouts/adminLayout";
+import Dashboard from "../pages/home/dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -35,24 +37,10 @@ export const router = createBrowserRouter([
                 path: "/register",
                 element: <RegisterPage />,
             },
-            {
-                path: "/user",
-                element: <ProtectedRoute allowedRoles={['ROLE_USER']} />,
-                children: [
-                    {
-                        path: "profile",
-                        element: <UserProfilePage />,
-                    },
-                    {
-                        path: "orders",
-                        element: <UserOrdersPage />,
-                    },
-                ],
-            },
             */
         ],
+
     },
-    /*
     {
         path: "/admin",
         element: (
@@ -62,14 +50,14 @@ export const router = createBrowserRouter([
         ),
         children: [
             {
-                index: true,
-                element: <AdminDashboard />,
-            },
+                path: "/admin/dashboard",
+                element: <Dashboard />,
+            }
+
         ],
     },
     {
         path: "*",
-        element: <NotFoundPage />,
+        element: <p>404 Not found</p>,
     },
-    */
 ]);

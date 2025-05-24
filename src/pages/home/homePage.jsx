@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { ArrowRightIcon, ShoppingBagIcon, Phone, Computer, Shirt, Home, Book } from "lucide-react";
+import { ArrowRightIcon, ShoppingBagIcon, Phone, Computer, Shirt, Home, Book, PlusIcon } from "lucide-react";
 import ProductCard from "../../components/productCard";
 import { useSelector } from "react-redux";
 
@@ -12,10 +12,11 @@ const Homepage = () => {
     const [activeCategory, setActiveCategory] = useState("All");
     const [favorites, setFavorites] = useState([]);
 
+    // static category temporarly
     const categories = ["All", "Home", "Fashion", "Decor", "Kitchen", "Stationery"];
 
     useEffect(() => {
-        // Set loading to false once we have products
+
         if (products.length > 0) {
             setIsLoading(false);
         }
@@ -37,9 +38,9 @@ const Homepage = () => {
 
     return (
         <div className="bg-gray-50 uppercase">
-            {/* Hero Banner */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-800 to-fuchsia-800 text-white py-24 rounded-3xl mt-10 px-4 sm:px-6 lg:px-8">
-                {/* Decorative elements */}
+            {/* Hero section */}
+            <div className="relative mt-18 border border-gray-300 shadow-xs overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-800 to-fuchsia-800 text-white py-24 rounded-3xl mt-10 px-4 sm:px-6 lg:px-8">
+
                 <div className="absolute top-0 left-0 w-full h-full opacity-20">
                     <div className="absolute top-20 left-10 w-40 h-40 rounded-full bg-purple-500 mix-blend-overlay filter blur-3xl"></div>
                     <div className="absolute bottom-10 right-20 w-60 h-60 rounded-full bg-fuchsia-600 mix-blend-overlay filter blur-3xl"></div>
@@ -47,18 +48,18 @@ const Homepage = () => {
 
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="text-center">
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                        <h1 className="text-3xl sm:text-7xl font-bold mb-6 leading-tight">
                             Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">Handmade</span> Treasures
                         </h1>
-                        <p className="text-xl md:text-2xl text-purple-100 max-w-3xl mx-auto mb-10 leading-relaxed">
+                        <p className="text-sm sm:text-2xl text-purple-100 max-w-3xl mx-auto mb-10 leading-relaxed">
                             Shop unique items from independent makers around the world
                         </p>
 
-                        <div className="mt-12 flex justify-center space-x-4">
+                        <div className="mt-12 flex justify-center items-center space-x-4">
                             <span className="text-purple-200 font-medium">Trending:</span>
-                            <div className="flex flex-wrap justify-center gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-5 justify-center gap-3">
                                 {['Ceramics', 'Macrame', 'Wooden Toys', 'Handmade Soap', 'Embroidery'].map((tag) => (
-                                    <button key={tag} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium hover:bg-white/20 transition-colors">
+                                    <button key={tag} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-gray-300 font-medium hover:bg-white/20 transition-colors">
                                         #{tag}
                                     </button>
                                 ))}
@@ -72,7 +73,6 @@ const Homepage = () => {
             <div className="backdrop-blur-lg py-6 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="relative">
-                        {/* Enhanced category pills */}
                         <div className="flex overflow-x-auto scroll-smooth pb-2 space-x-2 scrollbar-hide">
                             {categories.map((category) => (
                                 <button
@@ -160,11 +160,11 @@ const Homepage = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {categories.filter(c => c !== "All").map((category, index) => {
-                            // Dynamic sizing for visual hierarchy
+                            // Bento grid
                             const colSpan = index % 7 === 0 ? "lg:col-span-2" : "";
                             const rowSpan = index % 5 === 0 ? "lg:row-span-2" : "";
 
-                            // Icons for each category
+                            // Icons
                             const icons = [
                                 <ShoppingBagIcon className="h-8 w-8" />,
                                 <Phone className="h-8 w-8" />,
@@ -205,7 +205,7 @@ const Homepage = () => {
                     </div>
 
                     <div className="mt-12 text-center">
-                        <button className="px-6 py-3 bg-white text-gray-900 font-medium rounded-full shadow-xs uppercase border border-gray-300 transition-colors">
+                        <button className="px-6 py-2 bg-white text-gray-900 font-medium rounded-full shadow-xs uppercase border border-gray-300 transition-colors">
                             View all categories
                         </button>
                     </div>
@@ -243,15 +243,14 @@ const Homepage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true, margin: "-50px" }}
-                                whileHover={{ y: -10 }}
                                 className="relative group"
                             >
-                                <div className="bg-white/70 backdrop-blur-lg rounded-xl shadow-sm overflow-hidden border border-white/20 transition-all duration-300 group-hover:shadow-lg group-hover:border-white/40">
+                                <div className="bg-white/70 backdrop-blur-lg rounded-xl shadow-xs overflow-hidden border border-gray-300 transition-all duration-300">
                                     <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
                                         <motion.img
                                             src={product.attachments[0]?.url || '/placeholder-product.jpg'}
                                             alt={product.title}
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            className="w-full h-full object-cover transition-transform duration-500"
                                             initial={{ opacity: 0 }}
                                             whileInView={{ opacity: 1 }}
                                             transition={{ duration: 0.6 }}
@@ -267,17 +266,15 @@ const Homepage = () => {
                                             whileInView={{ opacity: 1 }}
                                             transition={{ delay: index * 0.1 + 0.3 }}
                                         >
-                                            ${product.price?.toFixed(2) || '0.00'}
+                                            ${parseFloat(product.sizes[0]?.price).toFixed(2) || '0.00'}
                                         </motion.p>
                                     </div>
 
                                     <motion.button
-                                        className="absolute bottom-4 right-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                                        whileTap={{ scale: 0.95 }}
+                                        className="absolute bottom-4 right-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-2 rounded-full shadow-xs border border-gray-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
+
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                        </svg>
+                                        <PlusIcon className="size-5" />
                                     </motion.button>
                                 </div>
                             </motion.div>
@@ -285,16 +282,11 @@ const Homepage = () => {
                     </div>
 
                     <div className="mt-12 flex justify-center">
-                        <motion.button
-                            className="relative px-6 py-3 bg-transparent border-2 border-purple-600 text-purple-600 rounded-full font-medium overflow-hidden group"
-                            whileHover={{ backgroundColor: "#7C3AED", color: "#fff" }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <span className="relative z-10">View All History</span>
-                            <motion.span
-                                className="absolute inset-0 bg-purple-600 rounded-full scale-0 group-hover:scale-100 origin-center transition-transform duration-300"
-                            />
-                        </motion.button>
+                        <div className="mt-12 text-center">
+                            <button className="px-6 py-2 bg-white text-gray-900 font-medium rounded-full shadow-xs uppercase border border-gray-300 transition-colors">
+                                View order history
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -73,7 +73,6 @@ export default function ProductCard({
             role="button"
             aria-label={`View details for ${product.title}`}
         >
-            {/* Color selectors */}
             <div className="absolute z-10 top-3 left-3 grid grid-cols-5 gap-2">
                 {product.colors.map((color) => (
                     <div
@@ -91,7 +90,6 @@ export default function ProductCard({
                 ))}
             </div>
 
-            {/* Image carousel */}
             <Carousel
                 className="w-full h-full"
                 setApi={(api) => {
@@ -130,7 +128,6 @@ export default function ProductCard({
                 </CarouselContent>
             </Carousel>
 
-            {/* Favorite button */}
             <motion.button
                 onClick={(e) => {
                     e.stopPropagation();
@@ -149,7 +146,6 @@ export default function ProductCard({
                 </motion.div>
             </motion.button>
 
-            {/* Info & Add to Cart */}
             <div
                 className={`absolute bottom-0 left-0 right-0 p-4 transition-all duration-300 ${isHovered
                     ? "bg-gradient-to-t from-black/100 via-black/80 to-transparent"
@@ -169,7 +165,6 @@ export default function ProductCard({
                     </div>
                 </div>
 
-                {/* Size selectors */}
                 {product.sizes.length > 0 && (
                     <div className="flex gap-1 mb-2 flex-wrap">
                         {product.sizes.map((size) => (
@@ -223,7 +218,6 @@ export default function ProductCard({
                 </AnimatePresence>
             </div>
 
-            {/* Slide indicators */}
             {product.attachments.length > 1 && (
                 <div className="absolute bottom-20 left-0 right-0 flex justify-center gap-1.5 z-10">
                     {product.images.map((_, idx) => (

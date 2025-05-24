@@ -28,13 +28,16 @@ export default function MainLayout() {
     }, [user, navigate, dispatch]);
 
 
+    if (user?.roles?.includes('ROLE_ADMIN')) {
+        return null;
+    }
 
 
 
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-grow container mx-auto px-4 py-6">
+            <main className="flex-grow container mx-auto px-2 sm:px-4 py-6">
                 <Outlet />
             </main>
         </div>
