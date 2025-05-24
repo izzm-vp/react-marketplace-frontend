@@ -94,17 +94,13 @@ export function NavUser({
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
                 <IconNotification />
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => handleLogout()}>
-              <IconLogout />
+            <DropdownMenuItem className="bg-red-50 text-red-500" onClick={() => handleLogout()}>
+              <IconLogout className="text-red-500"/>
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

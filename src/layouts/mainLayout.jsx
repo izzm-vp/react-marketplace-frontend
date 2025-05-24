@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../components/navbar';
 import { fetchUserCart } from '../store/cart/cartActions';
 import { useEffect } from 'react';
+import { Loader } from 'lucide-react';
 
 export default function MainLayout() {
     const { user } = useSelector((state) => state.auth);
@@ -29,8 +30,10 @@ export default function MainLayout() {
 
 
     if (user?.roles?.includes('ROLE_ADMIN')) {
-        return null;
-    }
+        return <div className="h-screen w-full flex justify-center items-center">
+            <Loader className="size-10 text-indigo-500 animate-spin" />
+        </div>;
+    };
 
 
 
