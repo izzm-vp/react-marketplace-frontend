@@ -6,7 +6,7 @@ export const fetchProducts = createAsyncThunk(
     'products/fetchAll',
     async (params, { rejectWithValue }) => {
         try {
-            const  response  = await apiActions.fetchProducts(params);
+            const response = await apiActions.fetchProducts(params);
 
             return response.data;
 
@@ -55,9 +55,6 @@ export const createProduct = createAsyncThunk(
             const response = await apiActions.createProduct(productData);
             return response.data;
         } catch (error) {
-            if (error.response?.status === 400) {
-                return rejectWithValue(error.response.data.message);
-            }
             return rejectWithValue('Failed to create product');
         }
     }
@@ -71,12 +68,6 @@ export const updateProduct = createAsyncThunk(
             const response = await apiActions.updateProduct(id, productData);
             return response.data;
         } catch (error) {
-            if (error.response?.status === 404) {
-                return rejectWithValue('Product not found');
-            }
-            if (error.response?.status === 400) {
-                return rejectWithValue(error.response.data.message);
-            }
             return rejectWithValue('Failed to update product');
         }
     }
@@ -90,9 +81,6 @@ export const deleteProduct = createAsyncThunk(
             await apiActions.deleteProduct(id);
             return id;
         } catch (error) {
-            if (error.response?.status === 404) {
-                return rejectWithValue('Product not found');
-            }
             return rejectWithValue('Failed to delete product');
         }
     }

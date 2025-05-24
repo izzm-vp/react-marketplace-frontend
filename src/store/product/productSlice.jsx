@@ -31,7 +31,7 @@ const productSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        // Fetch all products
+        // Fetch paginated products
         builder
             .addCase(fetchProducts.pending, (state) => {
                 state.loading = true;

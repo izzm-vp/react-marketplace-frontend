@@ -30,7 +30,11 @@ const cartSlice = createSlice({
             })
             .addCase(addCartItem.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.items = [...state.items, action.payload];
+                /* addCartItem payload becomes and array
+                 of the whole cart its from localstorage */
+                state.items = Array.isArray(action.payload)
+                    ? action.payload
+                    : [...state.items, action.payload];
             })
             .addCase(addCartItem.rejected, (state, action) => {
                 state.status = 'failed';
@@ -56,7 +60,16 @@ const cartSlice = createSlice({
             })
             .addCase(removeCartItem.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.items = action.payload;
+
+                // if the return is array of cart items from localstorage
+                if (Array.isArray(action.payload)) {
+
+                    state.items = action.payload;
+                } else {
+                    // else if the item is the id of the deleted item
+
+                    state.items = state.items.filter(item => item.id !== action.payload);
+                }
             })
             .addCase(removeCartItem.rejected, (state, action) => {
                 state.status = 'failed';

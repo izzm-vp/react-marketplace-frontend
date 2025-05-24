@@ -129,8 +129,8 @@ export const removeCartItem = createAsyncThunk(
         try {
             const { auth } = getState();
             if (auth.isAuthenticated) {
-                const response = await apiActions.removeCartItem(itemId);
-                return response.data;
+                 await apiActions.removeCartItem(itemId);
+                return itemId;
             } else {
                 const cartItems = removeFromGuestCart(productId, sizeId, colorId);
                 return cartItems;

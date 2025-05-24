@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { ShoppingCart, Search, User, Menu, X, ChevronDown, Mail, Lock, LogOut, Loader2, Loader } from 'lucide-react';
+import { ShoppingCart, Search, User, Menu, X, ChevronDown, Mail, Lock, LogOut, Loader } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useClickOutside } from '../hooks/handleClickOutside';
 import { Dialog, DialogContent } from "./ui/dialog";
@@ -13,6 +13,7 @@ import { loginUser, registerUser, logoutUser } from "../store/auth/authActions"
 import { toast } from "sonner"
 import { addMultipleCartItems, fetchUserCart } from '../store/cart/cartActions';
 import { Link } from 'react-router-dom';
+import CartItem from './cartItem';
 
 
 const Navbar = () => {
@@ -46,11 +47,11 @@ const Navbar = () => {
     // REDUX
     const { isAuthenticated, user } = useSelector(state => state.auth)
     const { items } = useSelector(state => state.cart)
-    const { products: productState } = useSelector(state => state.products);
     const dispatch = useDispatch()
 
 
-    // Fermer le menu mobile quand on clique à l'extérieur
+
+    // Fermer le menu mobile quand on clique à l'exterieur
     useClickOutside(mobileMenuRef, () => {
         if (isMenuOpen) {
             setIsMenuOpen(false);
@@ -71,6 +72,8 @@ const Navbar = () => {
         setActiveDropdown(activeDropdown === item ? null : item);
     };
 
+
+    // dispatch login action
     const handleLogin = async (e) => {
         e.preventDefault();
         if (
@@ -111,6 +114,8 @@ const Navbar = () => {
         });
     };
 
+
+    // dispatch regisyter action
     const handleRegister = async (e) => {
         e.preventDefault();
         if (
@@ -143,6 +148,7 @@ const Navbar = () => {
         }
     };
 
+    // dispatch logout action
     const handleLogout = async () => {
         try {
 
@@ -161,6 +167,7 @@ const Navbar = () => {
         setIsHoveringUser(false);
     };
 
+    // login inputs change
     const handleLoginChange = (e) => {
         const { name, value } = e.target;
         setLoginData(prev => ({
@@ -169,6 +176,7 @@ const Navbar = () => {
         }));
     };
 
+    // register inputs change
     const handleRegisterChange = (e) => {
         const { name, value } = e.target;
         setRegisterData(prev => ({
@@ -201,7 +209,7 @@ const Navbar = () => {
 
     return (
         <motion.nav
-            className={`fixed w-full uppercase top-0 z-50 bg-white/95 backdrop-blur-3xl shadow-sm`}
+            className={`fixed w-full uppercase top-0 z-50 bg-white/95 backdrop-blur-3xl border-b border-gray-300 shadow-xs`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-20 items-center">
@@ -338,6 +346,7 @@ const Navbar = () => {
                                 {/* Panier */}
                                 {isHoveringCart && (
                                     <motion.div
+                                        onMouseEnter={() => setIsHoveringCart(true)}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
@@ -356,68 +365,7 @@ const Navbar = () => {
                                         <div className="max-h-80 overflow-y-auto">
                                             {items.length > 0 ? (
                                                 items.map((item) => {
-
-                                                    const product = isAuthenticated
-                                                        ? item.product
-                                                        : productState?.products?.find(p => p.id === item.product_id);
-
-                                                    const size = isAuthenticated
-                                                        ? item.size
-                                                        : product?.sizes?.find(s => s.id === item.size_id);
-
-                                                    const color = isAuthenticated
-                                                        ? item.color
-                                                        : product?.colors?.find(c => c.id === item.color_id);
-
-                                                    if (!isAuthenticated && !product) return null;
-
-                                                    return (
-                                                        <div
-                                                            key={isAuthenticated ? item.id : `${item.product_id}-${item.size_id}-${item.color_id}`}
-                                                            className="flex items-center p-4 hover:bg-gray-100 duration-300/50"
-                                                        >
-                                                            <div className="w-14 h-14 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full mr-4 overflow-hidden">
-                                                                {product?.attachments?.length > 0 ? (
-                                                                    <img
-                                                                        src={product.attachments[0].path}
-                                                                        alt={product.title}
-                                                                        className="w-full h-full object-cover"
-                                                                    />
-                                                                ) : (
-                                                                    <div className="w-full border-2 border-indigo-600 h-full rounded-full flex items-center justify-center">
-                                                                        <span className="text-xs font-bold text-indigo-600">IMG</span>
-                                                                    </div>
-                                                                )}
-                                                            </div>
-
-                                                            <div className="flex-1 min-w-0">
-                                                                <h4 className="text-sm font-medium text-gray-800 truncate">
-                                                                    {product?.title}
-                                                                </h4>
-                                                                <div className="flex items-center text-xs text-gray-500">
-                                                                    Taille: {size?.name || 'N/A'} | Couleur: <span
-                                                                        className='h-4 w-4 mx-0.5 rounded-full border-2 border-gray-300'
-                                                                        style={{ background: color?.hex_code || "#FFFFFF" }}
-                                                                    ></span>
-                                                                </div>
-                                                                <div className="flex items-center mt-1">
-                                                                    <span className="text-sm font-semibold text-indigo-600">
-                                                                        ${size?.price || '0.00'}
-                                                                    </span>
-                                                                    <span className="mx-2 text-gray-300">•</span>
-                                                                    <span className="text-xs text-gray-500">
-                                                                        Qté: {item.quantity || 1}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-
-                                                            <button
-                                                                className="text-gray-400 hover:text-red-500 p-1 rounded-full"
-                                                            >
-                                                                <X size={16} className="stroke-[2.5px]" />
-                                                            </button>
-                                                        </div>
-                                                    );
+                                                    return <CartItem item={item} />
                                                 })
                                             ) : (
                                                 <div className="p-6 text-center">
@@ -426,48 +374,13 @@ const Navbar = () => {
                                             )}
                                         </div>
 
-                                        {items.length > 0 && (
-                                            <div className="p-4 border-t border-gray-300 bg-gradient-to-r from-gray-50 to-white">
-                                                <div className="space-y-3">
-                                                    <div className="flex justify-between">
-                                                        <span className="text-sm text-gray-600">Sous-total</span>
-                                                        <span className="text-sm font-semibold">
-                                                            ${items.reduce((total, item) => {
-                                                                const product = isAuthenticated
-                                                                    ? item.product
-                                                                    : productState.products.find(p => p.id === item.product_id);
-                                                                const size = isAuthenticated
-                                                                    ? item.size
-                                                                    : product?.sizes?.find(s => s.id === item.size_id);
-                                                                return total + (parseFloat(size?.price || 0) * (item.quantity || 1));
-                                                            }, 0).toFixed(2)}
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex justify-between">
-                                                        <span className="text-sm text-gray-600">Livraison</span>
-                                                        <span className="text-sm font-semibold text-green-600">Gratuite</span>
-                                                    </div>
-                                                    <div className="flex justify-between pt-2">
-                                                        <span className="text-base font-medium text-gray-800">Total</span>
-                                                        <span className="text-base font-bold text-indigo-600">
-                                                            ${items.reduce((total, item) => {
-                                                                const product = isAuthenticated
-                                                                    ? item.product
-                                                                    : productState.products.find(p => p.id === item.product_id);
-                                                                const size = isAuthenticated
-                                                                    ? item.size
-                                                                    : product?.sizes?.find(s => s.id === item.size_id);
-                                                                return total + (parseFloat(size?.price || 0) * (item.quantity || 1));
-                                                            }, 0).toFixed(2)}
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                        <div className="p-4 border-t border-gray-300 bg-gradient-to-r from-gray-50 to-white">
 
-                                                <Button className="w-full mt-4 py-3 uppercase bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium">
-                                                    Commander
-                                                </Button>
-                                            </div>
-                                        )}
+
+                                            <Button className="w-full py-3 uppercase bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium">
+                                                Commander
+                                            </Button>
+                                        </div>
                                     </motion.div>
                                 )}
                             </div>
@@ -492,10 +405,6 @@ const Navbar = () => {
                 {isMenuOpen && (
                     <>
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
                             className="md:hidden fixed inset-0 bg-black bg-opacity-40 z-40"
                             onClick={() => setIsMenuOpen(false)}
                         />
@@ -641,7 +550,7 @@ const Navbar = () => {
                                         <ShoppingCart size={22} strokeWidth={2} />
                                         <span className="mt-0 ml-2 text-sm font-medium">Panier</span>
                                         <span className="absolute border-3 border-gray-300 top-3 right-6 bg-indigo-600 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
-                                            3
+                                            {items.length}
                                         </span>
                                     </button>
                                 </div>
