@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser, registerUser, logoutUser } from "../store/auth/authActions"
 import { toast } from "sonner"
 import { addMultipleCartItems, fetchUserCart } from '../store/cart/cartActions';
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -205,11 +206,11 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-20 items-center">
                     {/* Logo */}
-                    <div className="flex items-center">
+                    <Link to={"/"} className="flex items-center">
                         <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             MarketPlace
                         </span>
-                    </div>
+                    </Link>
 
                     {/* Navigation desktop */}
                     <div className="hidden md:flex md:items-center md:space-x-1 flex-1 justify-center">
